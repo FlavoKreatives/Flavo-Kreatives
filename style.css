@@ -248,7 +248,7 @@ nav{
   z-index:1;
 }
 .float-2{
-  left:50%;top:-20px;
+  left:50%;top:60px;
   transform:translateX(-50%) rotate(5deg);
   animation:f2 8s ease-in-out infinite;
   z-index:3;width:215px;
