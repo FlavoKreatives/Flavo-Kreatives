@@ -6,33 +6,71 @@
 <title>Flavo Kreatives — Creative Studio Lagos</title>
 <meta name="description" content="Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for companies that refuse to be ignored.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Poppins:wght@600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav>
-  <div class="nav-brand"><img src="logo.png" alt="Flavo Kreatives" style="height:28px;display:block;"></div>
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- SOUND TOGGLE -->
+<audio id="ambientSound" loop>
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-1253.mp3" type="audio/mpeg">
+</audio>
+<audio id="clickSound">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3" type="audio/mpeg">
+</audio>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <img src="logo.png" alt="Flavo Kreatives">
+  </div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
+    <div class="sound-toggle" id="soundToggle" title="Toggle sound">
+      <svg id="soundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      <svg id="soundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </div>
     <div class="toggle" id="modeToggle"></div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-glow"></div>
+  <div class="hero-gradient"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
     <div class="hero-text">
-      <div class="hero-eyebrow">Creative Studio · Lagos, Nigeria</div>
-      <h1 class="hero-h1">Your Brand Has One Shot At Being <em>Remembered.</em> We Make It Count.</h1>
-      <p class="hero-sub">Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for companies that refuse to be ignored.</p>
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Creative Studio · Lagos, Nigeria
+        <span class="avail-dot"></span>
+        <span class="avail-text">Available for new projects</span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="word">Your</span>
+        <span class="word">Brand</span>
+        <span class="word">Has</span>
+        <span class="word">One</span>
+        <span class="word">Shot</span>
+        <span class="word">At</span>
+        <span class="word">Being</span>
+        <span class="word hero-gold">Remembered.</span>
+        <span class="word">We</span>
+        <span class="word">Make</span>
+        <span class="word">It</span>
+        <span class="word hero-gold">Count.</span>
+      </h1>
+      <p class="hero-sub">Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for brands that refuse to be ignored.</p>
       <div class="hero-btns">
         <a href="#work" class="btn-primary">See Our Work →</a>
         <a href="#contact" class="btn-outline">Get In Touch</a>
@@ -44,36 +82,39 @@
       <div class="float-card float-3" id="float3"></div>
     </div>
   </div>
-  <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="reveal">
+<section id="services" class="reveal dark-section">
   <div class="s-label">What We Do</div>
   <h2 class="s-title">SERVICES</h2>
   <div class="services-grid">
     <div class="svc" data-filter="Branding">
       <div class="svc-n">01</div>
       <div class="svc-name">Branding</div>
-      <div class="svc-desc">Logo systems, visual language, and brand guidelines built to own a market.</div>
+      <div class="svc-desc">Logo systems, visual language, and brand guidelines built to own a market. Every element designed with intention.</div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc" data-filter="Social Media">
       <div class="svc-n">02</div>
       <div class="svc-name">Social Media</div>
-      <div class="svc-desc">High-impact content and flyer design for real estate, fintech, and lifestyle brands.</div>
+      <div class="svc-desc">High-impact content, flyer design, and content calendars for real estate, fintech, and lifestyle brands.</div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc" data-filter="Print & OOH">
       <div class="svc-n">03</div>
       <div class="svc-name">Print & OOH</div>
-      <div class="svc-desc">Hoardings, banners, magazines, and large-format production-ready files.</div>
+      <div class="svc-desc">Hoardings, banners, magazines, and large-format production-ready files that demand attention in the physical world.</div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc" data-filter="Motion">
       <div class="svc-n">04</div>
       <div class="svc-name">Motion Design</div>
-      <div class="svc-desc">Animated content and brand reels that stop the scroll and communicate fast.</div>
+      <div class="svc-desc">Animated content and brand reels that stop the scroll. Built in After Effects and Premiere Pro.</div>
       <span class="svc-arrow">→</span>
     </div>
   </div>
@@ -90,35 +131,97 @@
     <button class="fbtn" data-cat="Print & OOH">Print & OOH</button>
     <button class="fbtn" data-cat="Motion">Motion</button>
   </div>
-  <div class="work-grid" id="workGrid"></div>
+  <div class="work-grid" id="workGrid">
+    <div class="work-empty">Loading work...</div>
+  </div>
+</section>
+
+<!-- SHOWREEL -->
+<section id="showreel" class="reveal dark-section" style="display:none">
+  <div class="s-label">In Motion</div>
+  <h2 class="s-title">SHOWREEL</h2>
+  <div class="reel-wrap" id="reelWrap"></div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="reveal">
+  <div class="s-label">How We Work</div>
+  <h2 class="s-title">PROCESS</h2>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-n">01</div>
+      <div class="step-name">Brief</div>
+      <div class="step-desc">We get into your brand, your market, your audience, and your competition. No assumptions. No guessing. The brief is everything.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-n">02</div>
+      <div class="step-name">Direction</div>
+      <div class="step-desc">We establish the visual language before a single pixel is designed. Mood, tone, palette, and positioning — agreed before execution begins.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-n">03</div>
+      <div class="step-name">Execution</div>
+      <div class="step-desc">Design, motion, copy — all built to the brief, not around it. Every decision has a reason. If it looks good but says nothing, it gets cut.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-n">04</div>
+      <div class="step-name">Delivery</div>
+      <div class="step-desc">Production-ready files, properly organized, properly named. You get what you need to actually use the work — not just admire it.</div>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="reveal">
+<section id="about" class="reveal dark-section">
   <div class="s-label">Who We Are</div>
   <h2 class="s-title">ABOUT</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p><strong>Flavo Kreatives</strong> is a Lagos-based creative studio led by Kayode Adeife Obasunlade — a designer, creative director, and visual strategist with a sharp eye for what makes a brand unforgettable.</p>
-      <p>We work across real estate, fintech, automotive, and lifestyle — building visual systems that are as functional as they are striking. Every project is treated as a brand problem first, a design problem second.</p>
-      <p>From social content to luxury print campaigns — <strong>we do the work that moves brands forward.</strong></p>
+      <p>Flavo Kreatives started in 2018. By 2020, it became intentional — a deliberate decision to go deep into the craft and build something that actually means something in the Lagos creative space.</p>
+      <p>The work here is built on one principle: <strong>a design that looks good but fails to communicate is not a good design.</strong> Every project starts with the message, the audience, and the brief. The aesthetics follow — not the other way around.</p>
+      <p>We work with brands that understand what design actually does. Not decoration. Not showbiz. <strong>Communication with intention.</strong></p>
+      <p class="tools-line">Working across <strong>Photoshop, Illustrator, CorelDraw, Figma, After Effects</strong> and <strong>Premiere Pro</strong> — with AI tools including Midjourney and Leonardo for concept generation.</p>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Years Active</div></div>
-      <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Active Brands</div></div>
-      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Original Work</div></div>
-      <div class="stat"><div class="stat-n">LOS</div><div class="stat-l">Lagos Based</div></div>
+    <div class="about-right">
+      <div class="stats">
+        <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Years Active</div></div>
+        <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Active Brands</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Original Work</div></div>
+        <div class="stat"><div class="stat-n">LOS</div><div class="stat-l">Lagos Based</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="reveal">
+  <div class="s-label">What Clients Say</div>
+  <h2 class="s-title">TESTIMONIALS</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-quote">"Kayode, you are bad. Nobody does it like you."</div>
+      <div class="testi-author">
+        <div class="testi-name">CEO, 555 Offplan</div>
+        <div class="testi-brand">Real Estate</div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"This is exactly what I was talking about. Nobody does it like you do."</div>
+      <div class="testi-author">
+        <div class="testi-name">Whitecrust Team</div>
+        <div class="testi-brand">Fintech & Investment</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="reveal">
+<section id="contact" class="reveal dark-section">
   <div class="s-label">Get In Touch</div>
   <h2 class="s-title">CONTACT</h2>
   <div class="contact-grid">
-    <div>
-      <p class="contact-copy">Have a project in mind? Whether you need a full brand identity or a single campaign, let's talk about what you're building.</p>
+    <div class="contact-left">
+      <p class="contact-copy">Have a project in mind? Whether you need a full brand identity or a single campaign — let's talk about what you're building.</p>
       <div class="clinks">
         <a href="mailto:Flavo_Creatives@Outlook.com" class="clink">
           <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -132,10 +235,10 @@
           <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           +234 813 916 4967
         </a>
-        <a class="clink">
+        <div class="clink">
           <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           Lagos, Nigeria
-        </a>
+        </div>
       </div>
     </div>
     <form class="cform" action="https://formspree.io/f/xeenrpyp" method="POST">
@@ -148,11 +251,17 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span class="foot-copy">© 2025 Flavo Kreatives. All rights reserved.</span>
+  <div class="foot-links">
+    <a href="https://instagram.com/flavo_kreatives" target="_blank">Instagram</a>
+    <a href="https://wa.me/2348139164967" target="_blank">WhatsApp</a>
+  </div>
   <span class="foot-brand">FK<span>.</span></span>
 </footer>
 
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lbClose">✕</button>
   <img class="lb-img" id="lbImg" src="" alt="" style="display:none">
