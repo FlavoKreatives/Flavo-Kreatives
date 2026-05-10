@@ -134,7 +134,6 @@ async function loadHeroVideo() {
     const f = item.fields;
     const wrap = document.getElementById('heroVideoWrap');
     if (!wrap) return;
-
     if (f.url) {
       wrap.innerHTML = `<iframe src="${f.url}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1" allow="autoplay" frameborder="0" style="width:100%;height:100%;pointer-events:none;opacity:0.18"></iframe>`;
     } else if (f.image) {
@@ -208,10 +207,8 @@ function renderCards() {
   const filtered = currentFilter === 'All'
     ? allCards
     : allCards.filter(c => c.dataset.cat === currentFilter);
-
   allCards.forEach(c => c.style.display = 'none');
   filtered.slice(0, visibleCount).forEach(c => c.style.display = 'block');
-
   const btn = document.getElementById('loadMoreBtn');
   if (btn) {
     btn.style.display = filtered.length > visibleCount ? 'inline-flex' : 'none';
@@ -237,8 +234,12 @@ if (loadMoreBtn) {
 }
 
 // =====================
-// LIGHTBOX SWIPE + ARROWS
+// LIGHTBOX
 // =====================
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbVideo = document.getElementById('lbVideo');
+const lbCap = document.getElementById('lbCaption');
 let currentLbIndex = 0;
 let lbItems = [];
 
@@ -263,16 +264,26 @@ function openLightboxAt(index) {
   lb.classList.add('open');
 }
 
-// Keyboard arrows
+document.getElementById('lbClose').addEventListener('click', () => {
+  lb.classList.remove('open');
+  lbVideo.src = '';
+});
+
+lb.addEventListener('click', e => {
+  if (e.target === lb) { lb.classList.remove('open'); lbVideo.src = ''; }
+});
+
 document.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') { lb.classList.remove('open'); lbVideo.src = ''; }
   if (e.key === 'ArrowRight') openLightboxAt((currentLbIndex + 1) % lbItems.length);
   if (e.key === 'ArrowLeft') openLightboxAt((currentLbIndex - 1 + lbItems.length) % lbItems.length);
 });
 
-// Touch swipe
 let touchStartX = 0;
-lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
 lb.addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 50) {
@@ -280,6 +291,7 @@ lb.addEventListener('touchend', e => {
     else openLightboxAt((currentLbIndex - 1 + lbItems.length) % lbItems.length);
   }
 });
+
 // =====================
 // LOAD WORK GRID
 // =====================
@@ -312,6 +324,7 @@ async function loadProjects() {
       card.dataset.cat = category;
       card.dataset.client = client;
       card.dataset.type = type;
+      if (url) card.dataset.url = url;
       card.style.display = 'none';
 
       card.innerHTML = `
@@ -327,15 +340,19 @@ async function loadProjects() {
       `;
 
       card.addEventListener('click', () => {
-  const visibleCards = allCards.filter(c => c.style.display !== 'none');
-  lbItems = visibleCards.map(c => ({
-    type: c.dataset.type,
-    src: c.dataset.type === 'video' ? c.dataset.url || '' : (c.dataset.type === 'pdf' ? c.dataset.url || '' : (c.querySelector('img') ? c.querySelector('img').src : '')),
-    client: c.dataset.client
-  }));
-  const idx = visibleCards.indexOf(card);
-  openLightboxAt(idx >= 0 ? idx : 0);
-});
+        const visibleCards = allCards.filter(c => c.style.display !== 'none');
+        lbItems = visibleCards.map(c => ({
+          type: c.dataset.type,
+          src: c.dataset.type === 'video'
+            ? c.dataset.url || ''
+            : c.dataset.type === 'pdf'
+            ? c.dataset.url || ''
+            : c.querySelector('img') ? c.querySelector('img').src : '',
+          client: c.dataset.client
+        }));
+        const idx = visibleCards.indexOf(card);
+        openLightboxAt(idx >= 0 ? idx : 0);
+      });
 
       card.addEventListener('mouseenter', () => cursor.classList.add('active'));
       card.addEventListener('mouseleave', () => cursor.classList.remove('active'));
