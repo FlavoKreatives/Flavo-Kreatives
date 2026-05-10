@@ -1,73 +1,173 @@
+// =====================
 // CUSTOM CURSOR
-const cursor = document.createElement('div');
-cursor.classList.add('cursor');
-document.body.appendChild(cursor);
+// =====================
+const cursor = document.getElementById('cursor');
+const follower = document.getElementById('cursorFollower');
+
+let mouseX = 0, mouseY = 0;
+let followerX = 0, followerY = 0;
 
 document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
 });
 
-document.querySelectorAll('a, button, .wcard, .svc, .fbtn, .toggle').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+function animateFollower() {
+  followerX += (mouseX - followerX) * 0.12;
+  followerY += (mouseY - followerY) * 0.12;
+  follower.style.left = followerX + 'px';
+  follower.style.top = followerY + 'px';
+  requestAnimationFrame(animateFollower);
+}
+animateFollower();
+
+document.querySelectorAll('a, button, .wcard, .svc, .fbtn, .toggle, .sound-toggle, .float-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('active');
+    follower.classList.add('active');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('active');
+    follower.classList.remove('active');
+  });
 });
 
+// =====================
+// SOUND
+// =====================
+const ambient = document.getElementById('ambientSound');
+const clickSound = document.getElementById('clickSound');
+const soundToggle = document.getElementById('soundToggle');
+const soundOn = document.getElementById('soundOn');
+const soundOff = document.getElementById('soundOff');
+let soundEnabled = false;
+
+ambient.volume = 0.08;
+clickSound.volume = 0.3;
+
+soundToggle.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  if (soundEnabled) {
+    ambient.play().catch(() => {});
+    soundOn.style.display = 'block';
+    soundOff.style.display = 'none';
+  } else {
+    ambient.pause();
+    soundOn.style.display = 'none';
+    soundOff.style.display = 'block';
+  }
+});
+
+function playClick() {
+  if (!soundEnabled) return;
+  clickSound.currentTime = 0;
+  clickSound.play().catch(() => {});
+}
+
+document.querySelectorAll('a, button, .fbtn, .svc, .toggle').forEach(el => {
+  el.addEventListener('click', playClick);
+});
+
+// =====================
 // MODE TOGGLE
+// =====================
 document.getElementById('modeToggle').addEventListener('click', () => {
   document.body.classList.toggle('light');
+  playClick();
 });
 
+// =====================
 // SCROLL REVEAL
+// =====================
 const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
+const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
+      revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
-revealEls.forEach(el => observer.observe(el));
+}, { threshold: 0.08 });
+revealEls.forEach(el => revealObserver.observe(el));
 
+// =====================
+// HERO WORD ANIMATION
+// =====================
+function animateWords() {
+  const words = document.querySelectorAll('.word');
+  words.forEach((word, i) => {
+    setTimeout(() => {
+      word.classList.add('visible');
+    }, 120 * i);
+  });
+}
+window.addEventListener('load', () => {
+  setTimeout(animateWords, 300);
+});
+
+// =====================
+// FLOATING CARDS — CURSOR PARALLAX
+// =====================
+document.addEventListener('mousemove', e => {
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const dx = (e.clientX - cx) / cx;
+  const dy = (e.clientY - cy) / cy;
+
+  const f1 = document.getElementById('float1');
+  const f2 = document.getElementById('float2');
+  const f3 = document.getElementById('float3');
+
+  if (f1) f1.style.transform = `rotate(-7deg) translate(${dx * 10}px, ${dy * 10}px)`;
+  if (f2) f2.style.transform = `rotate(4deg) translate(${dx * 16}px, ${dy * 16}px)`;
+  if (f3) f3.style.transform = `rotate(-3deg) translate(${dx * 8}px, ${dy * 8}px)`;
+});
+
+// =====================
 // CONTENTFUL CONFIG
+// =====================
 const SPACE_ID = 'am1xfyhkx406';
 const ACCESS_TOKEN = 'Ljuziy4OFT_iQyVLliVwFbT46smaT553QnJopFL0Hq0';
-const API_URL = `https://cdn.contentful.com/spaces/${SPACE_ID}/entries?content_type=project&order=fields.order&access_token=${ACCESS_TOKEN}&include=1`;
-const HERO_URL = `https://cdn.contentful.com/spaces/${SPACE_ID}/entries?content_type=project&fields.featured=true&access_token=${ACCESS_TOKEN}&include=1`;
+const BASE = `https://cdn.contentful.com/spaces/${SPACE_ID}`;
+const PARAMS = `access_token=${ACCESS_TOKEN}&include=1`;
 
+// =====================
 // SERVICE CLICK → FILTER + SCROLL
+// =====================
 document.querySelectorAll('.svc').forEach(svc => {
   svc.addEventListener('click', () => {
     const filter = svc.dataset.filter;
     document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
-    document.querySelector(`.fbtn[data-cat="${filter}"]`).classList.add('on');
+    const btn = document.querySelector(`.fbtn[data-cat="${filter}"]`);
+    if (btn) btn.classList.add('on');
     filterWork(filter);
     document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
   });
 });
 
-// FILTER FUNCTION
+// =====================
+// FILTER
+// =====================
 function filterWork(cat) {
   document.querySelectorAll('.wcard').forEach(card => {
-    if (cat === 'All' || card.dataset.cat === cat) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
+    card.style.display = (cat === 'All' || card.dataset.cat === cat) ? 'block' : 'none';
   });
 }
 
-// FILTER BUTTONS
 document.querySelectorAll('.fbtn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
     btn.classList.add('on');
     filterWork(btn.dataset.cat);
+    playClick();
   });
 });
 
+// =====================
 // LIGHTBOX
+// =====================
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbVideo = document.getElementById('lbVideo');
@@ -88,6 +188,7 @@ function openLightbox(type, src, client) {
   }
   lbCap.textContent = client;
   lb.classList.add('open');
+  playClick();
 }
 
 document.getElementById('lbClose').addEventListener('click', () => {
@@ -101,53 +202,90 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { lb.classList.remove('open'); lbVideo.src = ''; }
 });
 
-// FETCH HERO FEATURED IMAGES
+// =====================
+// FETCH ASSETS HELPER
+// =====================
+function buildAssetMap(includes) {
+  const map = {};
+  if (includes && includes.Asset) {
+    includes.Asset.forEach(a => {
+      map[a.sys.id] = 'https:' + a.fields.file.url;
+    });
+  }
+  return map;
+}
+
+// =====================
+// LOAD HERO FEATURED IMAGES
+// =====================
 async function loadHero() {
   try {
-    const res = await fetch(HERO_URL);
+    const res = await fetch(`${BASE}/entries?content_type=project&fields.featured=true&${PARAMS}`);
     const data = await res.json();
     if (!data.items || data.items.length === 0) return;
-
-    const assets = {};
-    if (data.includes && data.includes.Asset) {
-      data.includes.Asset.forEach(asset => {
-        assets[asset.sys.id] = 'https:' + asset.fields.file.url;
-      });
-    }
-
-    const floats = ['float1', 'float2', 'float3'];
+    const assets = buildAssetMap(data.includes);
+    const ids = ['float1', 'float2', 'float3'];
     data.items.slice(0, 3).forEach((item, i) => {
       const imgId = item.fields.image && item.fields.image.sys.id;
-      const imgUrl = imgId ? assets[imgId] : null;
-      if (imgUrl) {
-        const el = document.getElementById(floats[i]);
+      const url = imgId ? assets[imgId] : null;
+      if (url) {
+        const el = document.getElementById(ids[i]);
         if (el) {
-          el.style.backgroundImage = `url(${imgUrl})`;
+          el.style.backgroundImage = `url(${url})`;
           el.style.backgroundSize = 'cover';
           el.style.backgroundPosition = 'center';
         }
       }
     });
-  } catch (err) {
-    console.error('Hero load error:', err);
+  } catch (e) {
+    console.error('Hero error:', e);
   }
 }
 
-// FETCH ALL PROJECTS AND BUILD WORK GRID
-async function loadProjects() {
+// =====================
+// LOAD SHOWREEL
+// =====================
+async function loadShowreel() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${BASE}/entries?content_type=project&fields.showreel=true&${PARAMS}`);
     const data = await res.json();
     if (!data.items || data.items.length === 0) return;
+    const assets = buildAssetMap(data.includes);
+    const item = data.items[0];
+    const f = item.fields;
+    const section = document.getElementById('showreel');
+    const wrap = document.getElementById('reelWrap');
 
-    const assets = {};
-    if (data.includes && data.includes.Asset) {
-      data.includes.Asset.forEach(asset => {
-        assets[asset.sys.id] = 'https:' + asset.fields.file.url;
-      });
+    if (f.url) {
+      wrap.innerHTML = `<iframe src="${f.url}" allowfullscreen allow="autoplay"></iframe>`;
+      section.style.display = 'block';
+    } else if (f.image) {
+      const url = assets[f.image.sys.id];
+      if (url) {
+        wrap.innerHTML = `<video src="${url}" autoplay muted loop playsinline></video>`;
+        section.style.display = 'block';
+      }
+    }
+  } catch (e) {
+    console.error('Showreel error:', e);
+  }
+}
+
+// =====================
+// LOAD WORK GRID
+// =====================
+async function loadProjects() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${PARAMS}`);
+    const data = await res.json();
+    const grid = document.getElementById('workGrid');
+
+    if (!data.items || data.items.length === 0) {
+      grid.innerHTML = '<div class="work-empty">No projects yet. Upload your work in Contentful.</div>';
+      return;
     }
 
-    const grid = document.getElementById('workGrid');
+    const assets = buildAssetMap(data.includes);
     grid.innerHTML = '';
 
     data.items.forEach(item => {
@@ -181,16 +319,27 @@ async function loadProjects() {
         openLightbox(type, type === 'video' ? url : (type === 'pdf' ? url : imgUrl), client);
       });
 
-      card.addEventListener('mouseenter', () => cursor.classList.add('big'));
-      card.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+      card.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+        follower.classList.add('active');
+      });
+      card.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        follower.classList.remove('active');
+      });
 
       grid.appendChild(card);
     });
 
-  } catch (err) {
-    console.error('Contentful error:', err);
+  } catch (e) {
+    console.error('Projects error:', e);
+    document.getElementById('workGrid').innerHTML = '<div class="work-empty">Could not load projects.</div>';
   }
 }
 
+// =====================
+// INIT
+// =====================
 loadHero();
+loadShowreel();
 loadProjects();
