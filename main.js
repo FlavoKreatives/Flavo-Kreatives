@@ -16,25 +16,38 @@ document.querySelectorAll('a, button, .wcard, .svc, .fbtn, .toggle, .sound-toggl
 // =====================
 // SOUND
 // =====================
-const clickSound = document.getElementById('clickSound');
 const soundToggle = document.getElementById('soundToggle');
 const soundOn = document.getElementById('soundOn');
 const soundOff = document.getElementById('soundOff');
 let soundEnabled = false;
 
-if (clickSound) clickSound.volume = 0.25;
+const audioCtx = typeof AudioContext !== 'undefined'
+  ? new AudioContext()
+  : typeof webkitAudioContext !== 'undefined'
+  ? new webkitAudioContext()
+  : null;
+
+function playClick() {
+  if (!soundEnabled || !audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(820, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+  osc.start(audioCtx.currentTime);
+  osc.stop(audioCtx.currentTime + 0.08);
+}
 
 soundToggle.addEventListener('click', () => {
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
   soundEnabled = !soundEnabled;
   soundOn.style.display = soundEnabled ? 'block' : 'none';
   soundOff.style.display = soundEnabled ? 'none' : 'block';
 });
-
-function playClick() {
-  if (!soundEnabled || !clickSound) return;
-  clickSound.currentTime = 0;
-  clickSound.play().catch(() => {});
-}
 
 document.querySelectorAll('a, button, .fbtn, .svc').forEach(el => {
   el.addEventListener('click', playClick);
@@ -68,10 +81,10 @@ revealEls.forEach(el => revealObs.observe(el));
 function animateWords() {
   const words = document.querySelectorAll('.word');
   words.forEach((w, i) => {
-    setTimeout(() => w.classList.add('vis'), 100 + i * 110);
+    setTimeout(() => w.classList.add('vis'), i * 55);
   });
 }
-window.addEventListener('load', () => setTimeout(animateWords, 200));
+window.addEventListener('load', () => setTimeout(animateWords, 50));
 
 // =====================
 // FLOATING CARDS PARALLAX
@@ -224,14 +237,16 @@ if (loadMoreBtn) {
 }
 
 // =====================
-// LIGHTBOX
+// LIGHTBOX SWIPE + ARROWS
 // =====================
-const lb = document.getElementById('lightbox');
-const lbImg = document.getElementById('lbImg');
-const lbVideo = document.getElementById('lbVideo');
-const lbCap = document.getElementById('lbCaption');
+let currentLbIndex = 0;
+let lbItems = [];
 
-function openLightbox(type, src, client) {
+function openLightboxAt(index) {
+  const item = lbItems[index];
+  if (!item) return;
+  currentLbIndex = index;
+  const { type, src, client } = item;
   lbImg.style.display = 'none';
   lbVideo.style.display = 'none';
   if (type === 'video') {
@@ -244,22 +259,27 @@ function openLightbox(type, src, client) {
     lbImg.src = src;
     lbImg.style.display = 'block';
   }
-  lbCap.textContent = client;
+  lbCap.textContent = `${client} — ${currentLbIndex + 1} / ${lbItems.length}`;
   lb.classList.add('open');
-  playClick();
 }
 
-document.getElementById('lbClose').addEventListener('click', () => {
-  lb.classList.remove('open');
-  lbVideo.src = '';
-});
-lb.addEventListener('click', e => {
-  if (e.target === lb) { lb.classList.remove('open'); lbVideo.src = ''; }
-});
+// Keyboard arrows
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { lb.classList.remove('open'); lbVideo.src = ''; }
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') openLightboxAt((currentLbIndex + 1) % lbItems.length);
+  if (e.key === 'ArrowLeft') openLightboxAt((currentLbIndex - 1 + lbItems.length) % lbItems.length);
 });
 
+// Touch swipe
+let touchStartX = 0;
+lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) openLightboxAt((currentLbIndex + 1) % lbItems.length);
+    else openLightboxAt((currentLbIndex - 1 + lbItems.length) % lbItems.length);
+  }
+});
 // =====================
 // LOAD WORK GRID
 // =====================
@@ -307,8 +327,15 @@ async function loadProjects() {
       `;
 
       card.addEventListener('click', () => {
-        openLightbox(type, type === 'video' ? url : (type === 'pdf' ? url : imgUrl), client);
-      });
+  const visibleCards = allCards.filter(c => c.style.display !== 'none');
+  lbItems = visibleCards.map(c => ({
+    type: c.dataset.type,
+    src: c.dataset.type === 'video' ? c.dataset.url || '' : (c.dataset.type === 'pdf' ? c.dataset.url || '' : (c.querySelector('img') ? c.querySelector('img').src : '')),
+    client: c.dataset.client
+  }));
+  const idx = visibleCards.indexOf(card);
+  openLightboxAt(idx >= 0 ? idx : 0);
+});
 
       card.addEventListener('mouseenter', () => cursor.classList.add('active'));
       card.addEventListener('mouseleave', () => cursor.classList.remove('active'));
