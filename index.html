@@ -6,24 +6,17 @@
 <title>Flavo Kreatives — Creative Studio Lagos</title>
 <meta name="description" content="Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for companies that refuse to be ignored.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Poppins:wght@600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- CUSTOM CURSOR -->
 <div class="cursor" id="cursor"></div>
-<div class="cursor-follower" id="cursorFollower"></div>
 
-<!-- SOUND TOGGLE -->
-<audio id="ambientSound" loop>
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-1253.mp3" type="audio/mpeg">
-</audio>
 <audio id="clickSound">
   <source src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3" type="audio/mpeg">
 </audio>
 
-<!-- NAV -->
 <nav id="navbar">
   <div class="nav-brand">
     <img src="logo.png" alt="Flavo Kreatives">
@@ -37,8 +30,8 @@
   </ul>
   <div class="nav-right">
     <div class="sound-toggle" id="soundToggle" title="Toggle sound">
-      <svg id="soundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
       <svg id="soundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      <svg id="soundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
     </div>
     <div class="toggle" id="modeToggle"></div>
   </div>
@@ -46,6 +39,8 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <div class="hero-video-wrap" id="heroVideoWrap"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-gradient"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
@@ -64,11 +59,11 @@
         <span class="word">Shot</span>
         <span class="word">At</span>
         <span class="word">Being</span>
-        <span class="word hero-gold">Remembered.</span>
+        <span class="word gold">Remembered.</span>
         <span class="word">We</span>
         <span class="word">Make</span>
         <span class="word">It</span>
-        <span class="word hero-gold">Count.</span>
+        <span class="word gold">Count.</span>
       </h1>
       <p class="hero-sub">Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for brands that refuse to be ignored.</p>
       <div class="hero-btns">
@@ -108,7 +103,7 @@
     <div class="svc" data-filter="Print & OOH">
       <div class="svc-n">03</div>
       <div class="svc-name">Print & OOH</div>
-      <div class="svc-desc">Hoardings, banners, magazines, and large-format production-ready files that demand attention in the physical world.</div>
+      <div class="svc-desc">Hoardings, banners, magazines, and large-format production-ready files that demand attention.</div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc" data-filter="Motion">
@@ -134,45 +129,41 @@
   <div class="work-grid" id="workGrid">
     <div class="work-empty">Loading work...</div>
   </div>
-</section>
-
-<!-- SHOWREEL -->
-<section id="showreel" class="reveal dark-section" style="display:none">
-  <div class="s-label">In Motion</div>
-  <h2 class="s-title">SHOWREEL</h2>
-  <div class="reel-wrap" id="reelWrap"></div>
+  <div class="load-more-wrap">
+    <button class="btn-outline" id="loadMoreBtn" style="display:none">Load More</button>
+  </div>
 </section>
 
 <!-- PROCESS -->
-<section id="process" class="reveal">
+<section id="process" class="reveal dark-section">
   <div class="s-label">How We Work</div>
   <h2 class="s-title">PROCESS</h2>
   <div class="process-grid">
-    <div class="process-step reveal">
+    <div class="process-step">
       <div class="step-n">01</div>
       <div class="step-name">Brief</div>
       <div class="step-desc">We get into your brand, your market, your audience, and your competition. No assumptions. No guessing. The brief is everything.</div>
     </div>
-    <div class="process-step reveal">
+    <div class="process-step">
       <div class="step-n">02</div>
       <div class="step-name">Direction</div>
       <div class="step-desc">We establish the visual language before a single pixel is designed. Mood, tone, palette, and positioning — agreed before execution begins.</div>
     </div>
-    <div class="process-step reveal">
+    <div class="process-step">
       <div class="step-n">03</div>
       <div class="step-name">Execution</div>
       <div class="step-desc">Design, motion, copy — all built to the brief, not around it. Every decision has a reason. If it looks good but says nothing, it gets cut.</div>
     </div>
-    <div class="process-step reveal">
+    <div class="process-step">
       <div class="step-n">04</div>
       <div class="step-name">Delivery</div>
-      <div class="step-desc">Production-ready files, properly organized, properly named. You get what you need to actually use the work — not just admire it.</div>
+      <div class="step-desc">Production-ready files, properly organized and named. You get what you need to actually use the work — not just admire it.</div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="reveal dark-section">
+<section id="about" class="reveal">
   <div class="s-label">Who We Are</div>
   <h2 class="s-title">ABOUT</h2>
   <div class="about-grid">
@@ -182,19 +173,17 @@
       <p>We work with brands that understand what design actually does. Not decoration. Not showbiz. <strong>Communication with intention.</strong></p>
       <p class="tools-line">Working across <strong>Photoshop, Illustrator, CorelDraw, Figma, After Effects</strong> and <strong>Premiere Pro</strong> — with AI tools including Midjourney and Leonardo for concept generation.</p>
     </div>
-    <div class="about-right">
-      <div class="stats">
-        <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Years Active</div></div>
-        <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Active Brands</div></div>
-        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Original Work</div></div>
-        <div class="stat"><div class="stat-n">LOS</div><div class="stat-l">Lagos Based</div></div>
-      </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Years Active</div></div>
+      <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Active Brands</div></div>
+      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Original Work</div></div>
+      <div class="stat"><div class="stat-n">LOS</div><div class="stat-l">Lagos Based</div></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="testimonials" class="reveal">
+<section id="testimonials" class="reveal dark-section">
   <div class="s-label">What Clients Say</div>
   <h2 class="s-title">TESTIMONIALS</h2>
   <div class="testi-grid">
@@ -216,7 +205,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="reveal dark-section">
+<section id="contact" class="reveal">
   <div class="s-label">Get In Touch</div>
   <h2 class="s-title">CONTACT</h2>
   <div class="contact-grid">
@@ -251,7 +240,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="foot-copy">© 2025 Flavo Kreatives. All rights reserved.</span>
   <div class="foot-links">
@@ -261,7 +249,6 @@
   <span class="foot-brand">FK<span>.</span></span>
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lbClose">✕</button>
   <img class="lb-img" id="lbImg" src="" alt="" style="display:none">
