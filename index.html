@@ -6,16 +6,12 @@
 <title>Flavo Kreatives — Creative Studio Lagos</title>
 <meta name="description" content="Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for companies that refuse to be ignored.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
-
-<audio id="clickSound">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3" type="audio/mpeg">
-</audio>
 
 <nav id="navbar">
   <div class="nav-brand">
@@ -41,40 +37,39 @@
 <section class="hero" id="home">
   <div class="hero-video-wrap" id="heroVideoWrap"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-gradient"></div>
+  <div class="hero-orb"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
-    <div class="hero-text">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-dot"></span>
-        Creative Studio · Lagos, Nigeria
-        <span class="avail-dot"></span>
-        <span class="avail-text">Available for new projects</span>
-      </div>
-      <h1 class="hero-h1">
-        <span class="word">Your</span>
-        <span class="word">Brand</span>
-        <span class="word">Has</span>
-        <span class="word">One</span>
-        <span class="word">Shot</span>
-        <span class="word">At</span>
-        <span class="word">Being</span>
-        <span class="word gold">Remembered.</span>
-        <span class="word">We</span>
-        <span class="word">Make</span>
-        <span class="word">It</span>
-        <span class="word gold">Count.</span>
-      </h1>
-      <p class="hero-sub">Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for brands that refuse to be ignored.</p>
-      <div class="hero-btns">
-        <a href="#work" class="btn-primary">See Our Work →</a>
-        <a href="#contact" class="btn-outline">Get In Touch</a>
-      </div>
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Creative Studio · Lagos, Nigeria
+      <span class="avail-dot"></span>
+      <span class="avail-text">Available for new projects</span>
+    </div>
+    <h1 class="hero-h1">
+      <span class="word w-light">Your</span>
+      <span class="word w-light">Brand</span>
+      <span class="word w-light">Has</span>
+      <span class="word w-light">One</span>
+      <span class="word w-light">Shot</span>
+      <span class="word w-light">At</span>
+      <span class="word w-light">Being</span>
+      <span class="word w-gold">Remembered.</span><br>
+      <span class="word w-light">We</span>
+      <span class="word w-light">Make</span>
+      <span class="word w-light">It</span>
+      <span class="word w-gold">Count.</span>
+    </h1>
+    <p class="hero-sub">Flavo Kreatives is a Lagos-based creative studio building visual identities, social campaigns, and branded content for brands that refuse to be ignored.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-primary">See Our Work →</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
     </div>
     <div class="hero-floats" id="heroFloats">
       <div class="float-card float-1" id="float1"></div>
       <div class="float-card float-2" id="float2"></div>
       <div class="float-card float-3" id="float3"></div>
+      <div class="float-card float-mobile" id="floatMobile"></div>
     </div>
   </div>
   <div class="hero-scroll">
@@ -130,7 +125,7 @@
     <div class="work-empty">Loading work...</div>
   </div>
   <div class="load-more-wrap">
-    <button class="btn-outline" id="loadMoreBtn" style="display:none">Load More</button>
+    <button class="btn-outline" id="loadMoreBtn" style="display:none">Load More Work</button>
   </div>
 </section>
 
@@ -142,22 +137,26 @@
     <div class="process-step">
       <div class="step-n">01</div>
       <div class="step-name">Brief</div>
-      <div class="step-desc">We get into your brand, your market, your audience, and your competition. No assumptions. No guessing. The brief is everything.</div>
+      <div class="step-tag">The part most designers skip.</div>
+      <div class="step-desc">Your market. Your audience. Your competition. No assumptions — just the right questions.</div>
     </div>
     <div class="process-step">
       <div class="step-n">02</div>
       <div class="step-name">Direction</div>
-      <div class="step-desc">We establish the visual language before a single pixel is designed. Mood, tone, palette, and positioning — agreed before execution begins.</div>
+      <div class="step-tag">Visual language locked before design starts.</div>
+      <div class="step-desc">Mood, palette, tone — agreed first. No moving targets mid-project.</div>
     </div>
     <div class="process-step">
       <div class="step-n">03</div>
       <div class="step-name">Execution</div>
-      <div class="step-desc">Design, motion, copy — all built to the brief, not around it. Every decision has a reason. If it looks good but says nothing, it gets cut.</div>
+      <div class="step-tag">Every pixel earns its place.</div>
+      <div class="step-desc">Built to the brief, not around it. If it looks good but says nothing — it gets cut.</div>
     </div>
     <div class="process-step">
       <div class="step-n">04</div>
       <div class="step-name">Delivery</div>
-      <div class="step-desc">Production-ready files, properly organized and named. You get what you need to actually use the work — not just admire it.</div>
+      <div class="step-tag">Files you can actually use.</div>
+      <div class="step-desc">Named, organized, ready. Not just handed over — handed over with context.</div>
     </div>
   </div>
 </section>
@@ -189,17 +188,13 @@
   <div class="testi-grid">
     <div class="testi-card">
       <div class="testi-quote">"Kayode, you are bad. Nobody does it like you."</div>
-      <div class="testi-author">
-        <div class="testi-name">CEO, 555 Offplan</div>
-        <div class="testi-brand">Real Estate</div>
-      </div>
+      <div class="testi-name">CEO, 555 Offplan</div>
+      <div class="testi-brand">Real Estate</div>
     </div>
     <div class="testi-card">
       <div class="testi-quote">"This is exactly what I was talking about. Nobody does it like you do."</div>
-      <div class="testi-author">
-        <div class="testi-name">Whitecrust Team</div>
-        <div class="testi-brand">Fintech & Investment</div>
-      </div>
+      <div class="testi-name">Whitecrust Team</div>
+      <div class="testi-brand">Fintech & Investment</div>
     </div>
   </div>
 </section>
@@ -251,6 +246,8 @@
 
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-arrow lb-prev" id="lbPrev">‹</button>
+  <button class="lb-arrow lb-next" id="lbNext">›</button>
   <img class="lb-img" id="lbImg" src="" alt="" style="display:none">
   <iframe class="lb-video" id="lbVideo" src="" allowfullscreen style="display:none"></iframe>
   <div class="lb-caption" id="lbCaption"></div>
