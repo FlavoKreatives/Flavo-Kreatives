@@ -223,15 +223,15 @@ nav{
 .hero-h1{
   font-family:var(--fp);
   font-size:clamp(32px,5.5vw,76px);
-  line-height:1.12;
+  line-height:1.18;
   font-weight:300;
   margin-bottom:24px;
-  background:linear-gradient(135deg,#ffffff 0%,#f0f0f0 40%,rgba(241,167,7,0.9) 70%,#f1a707 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:var(--text);
 }
-.w-light{font-weight:300}
+.w-light{
+  font-weight:300;
+  color:rgba(240,240,240,0.9);
+}
 .w-gold{
   font-weight:800;
   background:linear-gradient(135deg,#f1a707,#ffd04d,#f1a707);
