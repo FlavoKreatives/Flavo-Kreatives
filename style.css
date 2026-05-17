@@ -57,6 +57,18 @@ body::before{
   background-size:220px;
 }
 
+/* GLOBAL BACKGROUND BLOBS — gives glass something to blur against */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 40% 35% at 15% 25%,rgba(241,167,7,0.07) 0%,transparent 70%),
+    radial-gradient(ellipse 35% 30% at 85% 15%,rgba(241,167,7,0.05) 0%,transparent 65%),
+    radial-gradient(ellipse 30% 25% at 70% 75%,rgba(241,167,7,0.06) 0%,transparent 65%),
+    radial-gradient(ellipse 25% 20% at 25% 80%,rgba(241,167,7,0.04) 0%,transparent 60%);
+}
+
 /* CURSOR */
 .cursor{
   width:8px;height:8px;
@@ -577,21 +589,30 @@ section{padding:96px 5vw;background:var(--bg);position:relative;z-index:1}
 .process-step:hover::after{transform:scaleX(1)}
 .process-step:hover{background:var(--glass-hover)}
 .step-n{
-  font-family:var(--ff);font-size:48px;
-  color:var(--gold-mid);line-height:1;margin-bottom:14px;
+  font-family:var(--ff);
+  font-size:72px;
+  line-height:1;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(241,167,7,0.5),rgba(241,167,7,0.1));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
 }
 .step-name{
-  font-size:16px;font-weight:600;
-  color:#f0f0f0;margin-bottom:6px;
+  font-size:18px;font-weight:700;
+  color:#f0f0f0;margin-bottom:8px;
+  letter-spacing:-.01em;
 }
 .step-tag{
-  font-size:11px;font-style:italic;
-  color:var(--gold);margin-bottom:10px;
-  opacity:.85;
+  font-size:12px;font-style:italic;
+  color:var(--gold);margin-bottom:12px;
+  font-weight:400;
+  border-left:2px solid var(--gold);
+  padding-left:10px;
 }
 .step-desc{
-  font-size:12px;line-height:1.8;
-  color:rgba(255,255,255,0.35);
+  font-size:13px;line-height:1.8;
+  color:rgba(255,255,255,0.4);
 }
 
 /* ABOUT */
