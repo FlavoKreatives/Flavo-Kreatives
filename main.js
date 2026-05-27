@@ -428,8 +428,250 @@ async function loadProjects() {
 }
 
 // =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+
+// =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+
+// =====================
 // INIT
 // =====================
-loadHeroVideo();
-loadHeroImages();
-loadProjects();
+loadHeroVideo();// =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+
+// =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+// =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+
+// =====================
+// MARQUEE
+// =====================
+async function loadMarquee() {
+  try {
+    const res = await fetch(`${BASE}/entries?content_type=project&order=fields.order&${P}`);
+    const data = await res.json();
+    if (!data.items || data.items.length === 0) return;
+
+    const assets = getAssets(data.includes);
+    const inner = document.getElementById('marqueeInner');
+    if (!inner) return;
+
+    const items = data.items
+      .map(item => {
+        const imgId = item.fields.image && item.fields.image.sys.id;
+        return imgId ? assets[imgId] : null;
+      })
+      .filter(Boolean);
+
+    if (items.length === 0) return;
+
+    // Duplicate items to create seamless loop
+    const allItems = [...items, ...items, ...items];
+
+    allItems.forEach(url => {
+      const card = document.createElement('div');
+      card.className = 'marquee-card';
+      card.innerHTML = `<img src="${url}" alt="" loading="lazy">`;
+      inner.appendChild(card);
+    });
+
+    // Set animation duration based on item count for consistent speed
+    const duration = allItems.length * 3;
+    inner.style.animationDuration = `${duration}s`;
+
+  } catch(e) {
+    console.error('Marquee error:', e);
+  }
+}
+
