@@ -809,7 +809,72 @@ footer{
   color:rgba(255,255,255,.3);
   letter-spacing:.1em;text-transform:uppercase;
 }
-
+/* MARQUEE */
+.marquee-section{
+  width:100%;
+  overflow:hidden;
+  background:var(--bg2);
+  padding:40px 0;
+  border-top:1px solid var(--glass-border);
+  border-bottom:1px solid var(--glass-border);
+  position:relative;z-index:1;
+}
+.marquee-section::before,
+.marquee-section::after{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;
+  width:120px;
+  z-index:2;
+  pointer-events:none;
+}
+.marquee-section::before{
+  left:0;
+  background:linear-gradient(to right,var(--bg2),transparent);
+}
+.marquee-section::after{
+  right:0;
+  background:linear-gradient(to left,var(--bg2),transparent);
+}
+.marquee-track{
+  display:flex;
+  width:100%;
+  overflow:hidden;
+}
+.marquee-inner{
+  display:flex;
+  gap:12px;
+  animation:marqueeScroll 40s linear infinite;
+  will-change:transform;
+}
+.marquee-inner:hover{
+  animation-play-state:paused;
+}
+@keyframes marqueeScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.marquee-card{
+  width:160px;
+  aspect-ratio:4/5;
+  border-radius:10px;
+  overflow:hidden;
+  flex-shrink:0;
+  background:var(--bg3);
+  border:1px solid var(--glass-border);
+  position:relative;
+  transition:transform .4s,box-shadow .4s;
+}
+.marquee-card:hover{
+  transform:scale(1.04);
+  box-shadow:0 16px 48px rgba(0,0,0,0.5),0 0 0 1px rgba(241,167,7,0.2);
+}
+.marquee-card img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .6s;
+}
+.marquee-card:hover img{transform:scale(1.06)}
 /* MOBILE */
 @media(max-width:900px){
   .nav-links{display:none}
